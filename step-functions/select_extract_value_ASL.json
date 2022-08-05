@@ -1,0 +1,31 @@
+{
+    "Comment": "AWS Step Function state machine for extract data from websites.",
+    "StartAt": "Process Values",
+    "States": {
+      "ProcessTransaction": {
+          "Type" : "Choice",
+          "Choices": [ 
+            {
+              "Variable": "$.ElementName",
+              "StringEquals": "Title",
+              "Next": "ExtractTitle"
+            },
+            {
+              "Variable": "$.ElementName",
+              "StringEquals": "Cookies",
+              "Next": "ExtractCookies"
+            }
+        ]
+      },
+       "ExtractTitle": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:FUNCTION_NAME",
+        "End": true
+      },
+      "ExtractCookies": {
+        "Type": "Task",
+        "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:FUNCTION_NAME",
+        "End": true
+      }
+    }
+  }
